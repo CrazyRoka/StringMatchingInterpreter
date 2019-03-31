@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lexer.Core;
+using System;
 
 namespace StringMatchingInterpreter
 {
@@ -6,7 +7,13 @@ namespace StringMatchingInterpreter
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string programText = "\"Hello" + Environment.NewLine + "World\"";
+            var tokenizer = new Tokenizer();
+            var tokens = tokenizer.Tokenize(programText);
+            foreach (var token in tokens)
+            {
+                Console.WriteLine($"{token.TokenType.ToString()} {token.Value}");
+            }
         }
     }
 }
