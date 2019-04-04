@@ -7,12 +7,21 @@
         Comma,
         OpenParenthesis,
         CloseParenthesis,
+        OpenBraces,
+        CloseBraces,
         If,
         For,
         Else,
         Number,
         StringValue,
         StatementTerminator,
-        SequenceTerminator
+        SequenceTerminator,
+        Identifier,
+        Var,
+        Assign,
+        Equals,
+        Plus,
+        Minus,
+        AssignPlus,
     }
 }

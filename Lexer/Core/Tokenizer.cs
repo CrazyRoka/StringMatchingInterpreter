@@ -15,7 +15,7 @@ namespace Lexer.Core
             _tokenDefinitions = TokenDefinitions.GetTokenDefinitions();
         }
 
-        public IEnumerable<DslToken> Tokenize(string programText)
+        public List<DslToken> Tokenize(string programText)
         {
             var tokens = new List<DslToken>();
             string remainingText = programText;
@@ -49,7 +49,7 @@ namespace Lexer.Core
 
         private bool IsWhitespace(string programText)
         {
-            return Regex.IsMatch(programText, @"\s+");
+            return Regex.IsMatch(programText, @"^\s+");
         }
 
         private TokenMatch CreateInvalidTokenMatch(string programText)

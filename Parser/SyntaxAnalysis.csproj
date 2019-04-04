@@ -2,8 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Lexer</AssemblyName>
-    <RootNamespace>Lexer</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lexer\Lexer.csproj" />
+  </ItemGroup>
 
 </Project>
