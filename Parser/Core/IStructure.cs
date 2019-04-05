@@ -2,6 +2,6 @@
 {
     public interface IStructure
     {
-        void Execute();
+        void Execute(IContext context);
     }
 }
