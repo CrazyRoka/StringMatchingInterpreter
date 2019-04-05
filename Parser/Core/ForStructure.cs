@@ -7,7 +7,7 @@ namespace SyntaxAnalysis.Core
         private Statement _initialize;
         private Statement _condition;
         private Statement _increment;
-        private IEnumerable<Statement> _body;
+        private IEnumerable<IStructure> _body;
         public ForStructure(Statement initialize, Statement condition, Statement increment, IEnumerable<Statement> body)
         {
             _initialize = initialize;

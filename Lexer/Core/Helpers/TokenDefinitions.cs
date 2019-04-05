@@ -20,8 +20,8 @@ namespace Lexer.Core.Helpers
             tokenDefinitions.Add(new TokenDefinition(TokenType.For, @"^for(?=\b)"));
             tokenDefinitions.Add(new TokenDefinition(TokenType.Else, @"^else(?=\b)"));
             tokenDefinitions.Add(new TokenDefinition(TokenType.StatementTerminator, @"^;"));
-            tokenDefinitions.Add(new TokenDefinition(TokenType.Identifier, @"^[a-zA-Z]+"));
             tokenDefinitions.Add(new TokenDefinition(TokenType.Var, @"^var(?=\b)"));
+            tokenDefinitions.Add(new TokenDefinition(TokenType.Identifier, @"^[a-zA-Z]+"));
             tokenDefinitions.Add(new TokenDefinition(TokenType.AssignPlus, @"^\+="));
             tokenDefinitions.Add(new TokenDefinition(TokenType.Assign, @"^="));
             tokenDefinitions.Add(new TokenDefinition(TokenType.Equals, @"=="));

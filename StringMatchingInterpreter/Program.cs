@@ -1,4 +1,5 @@
 ﻿using Lexer.Core;
+using SyntaxAnalysis.Core;
 using System;
 using System.IO;
 
@@ -14,6 +15,11 @@ namespace StringMatchingInterpreter
             foreach (var token in tokens)
             {
                 Console.WriteLine($"{token.TokenType.ToString()} {token.Value}");
+            }
+            var list = new Analyser().Parse(tokens);
+            foreach(var str in list)
+            {
+                str.Execute();
             }
         }
     }

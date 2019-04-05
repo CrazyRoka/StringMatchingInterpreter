@@ -20,6 +20,7 @@ namespace SyntaxAnalysis.Core
                 {
                     GetToken(TokenType.If);
                     GetToken(TokenType.OpenParenthesis);
+                    int parenthesisCount = 1;
                     var condition = new Statement();
                     do
                     {
@@ -28,9 +29,14 @@ namespace SyntaxAnalysis.Core
                         {
                             throw new DslParserException($"Invalid 'IF' structure. Not expected {current.TokenType.ToString()}");
                         }
+                        if(current.TokenType == TokenType.OpenParenthesis)
+                        {
+                            parenthesisCount++;
+                        }
                         if(current.TokenType == TokenType.CloseParenthesis)
                         {
-                            break;
+                            parenthesisCount--;
+                            if (parenthesisCount == 0) break;
                         }
                         condition.AddToken(current);
                     } while (true);
@@ -79,9 +85,9 @@ namespace SyntaxAnalysis.Core
         {
             if (_tokens[_index].TokenType != type)
             {
-                throw new DslParserException($"Excpected {type.ToString()}, but got {_tokens[_index].ToString()}");
+                throw new DslParserException($"Excpected {type.ToString()}, but got {_tokens[_index].TokenType.ToString()}");
             }
-            return _tokens[_index];
+            return _tokens[_index++];
         } 
 
         private Statement ReadStatement()
@@ -109,7 +115,7 @@ namespace SyntaxAnalysis.Core
             GetToken(TokenType.OpenBraces);
             do
             {
-                var current = _tokens[index];
+                var current = _tokens[_index];
                 if(current.TokenType == TokenType.SequenceTerminator)
                 {
                     throw new DslParserException("Unexpected end of input");

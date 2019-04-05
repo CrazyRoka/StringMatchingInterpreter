@@ -10,7 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lexer\Lexer.csproj" />
+    <ProjectReference Include="..\Parser\SyntaxAnalysis.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

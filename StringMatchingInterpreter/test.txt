@@ -1,4 +1,8 @@
 var i = "roka"; var b = "toch";
+if (length(i) > 3) {
+	i = "123";
+	b = "321";
+}
 var c = i + b;
 var d = i;
 d += c;
