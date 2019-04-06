@@ -16,7 +16,7 @@ namespace SyntaxAnalysis.Core
             _body = body;
         }
 
-        public void Execute()
+        public void Execute(IContext context)
         {
             throw new System.NotImplementedException();
         }

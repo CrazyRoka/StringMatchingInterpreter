@@ -12,15 +12,15 @@ namespace SyntaxAnalysis.Core
             _body = body;
         }
 
-        public void Execute()
+        public void Execute(IContext context)
         {
             System.Console.WriteLine("IF: ");
             System.Console.WriteLine("CONDITION:");
-            _condition.Execute();
+            _condition.Execute(context);
             System.Console.WriteLine("END CONDITION");
-            foreach(var structure in _body)
+            foreach (var structure in _body)
             {
-                structure.Execute();
+                structure.Execute(context);
             }
             //throw new System.NotImplementedException();
             System.Console.WriteLine("EndIF");

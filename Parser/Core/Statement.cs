@@ -36,7 +36,7 @@ namespace SyntaxAnalysis.Core
         {
             if(code[0].Value.ToLower() == "length")
             {
-
+                return null;
             }
             else if(code[0].Value.ToLower() == "print")
             {
@@ -45,10 +45,11 @@ namespace SyntaxAnalysis.Core
                     throw new DslParserException("Invalid function call");
                 }
                 PrintFunction(ParseSubcode(context, code.GetRange(2, code.Count - 3)));
+                return null;
             }
             else
             {
-
+                return null;
             }
         }
 
