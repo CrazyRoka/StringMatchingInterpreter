@@ -23,5 +23,9 @@
         Plus,
         Minus,
         AssignPlus,
+        Bigger,
+        Smaller,
+        BiggerEquals,
+        SmallerEquals
     }
 }

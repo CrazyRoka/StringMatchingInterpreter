@@ -24,9 +24,13 @@ namespace Lexer.Core.Helpers
             tokenDefinitions.Add(new TokenDefinition(TokenType.Identifier, @"^[a-zA-Z]+"));
             tokenDefinitions.Add(new TokenDefinition(TokenType.AssignPlus, @"^\+="));
             tokenDefinitions.Add(new TokenDefinition(TokenType.Assign, @"^="));
-            tokenDefinitions.Add(new TokenDefinition(TokenType.Equals, @"=="));
+            tokenDefinitions.Add(new TokenDefinition(TokenType.Equals, @"^=="));
             tokenDefinitions.Add(new TokenDefinition(TokenType.Plus, @"^\+"));
             tokenDefinitions.Add(new TokenDefinition(TokenType.Minus, @"^\-"));
+            tokenDefinitions.Add(new TokenDefinition(TokenType.Bigger, @"^>"));
+            tokenDefinitions.Add(new TokenDefinition(TokenType.BiggerEquals, @"^>="));
+            tokenDefinitions.Add(new TokenDefinition(TokenType.Smaller, @"^<"));
+            tokenDefinitions.Add(new TokenDefinition(TokenType.SmallerEquals, @"^<="));
 
             return tokenDefinitions;
         }

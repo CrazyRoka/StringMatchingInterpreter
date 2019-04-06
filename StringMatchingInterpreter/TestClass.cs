@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
-namespace StringMatchingInterpreter
+namespace RokaProgramming
 {
     public class CharSet : IEnumerable<char>
     {
@@ -14,6 +15,28 @@ namespace StringMatchingInterpreter
         public void Remove(char value)
         {
             _charSet.Remove(value);
+        }
+
+        public static CharSet operator +(CharSet first, char second)
+        {
+            var result = new CharSet()
+            {
+                _charSet = new HashSet<char>(first._charSet)
+            };
+            result.Add(second);
+
+            return result;
+        }
+
+        public static CharSet operator -(CharSet first, char second)
+        {
+            var result = new CharSet()
+            {
+                _charSet = new HashSet<char>(first._charSet)
+            };
+            result.Remove(second);
+
+            return result;
         }
 
         public static CharSet operator +(CharSet first, CharSet second)
@@ -41,5 +64,17 @@ namespace StringMatchingInterpreter
         public IEnumerator<char> GetEnumerator() => _charSet.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => _charSet.GetEnumerator();
+    }
+
+    public class RokaProgram
+    {
+        private static int Length1(string value) => value.Length;
+
+        private static void Print1(string value) => Console.WriteLine(value);
+
+        //public static void Main()
+        //{
+
+        //}
     }
 }

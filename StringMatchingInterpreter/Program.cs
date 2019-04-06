@@ -23,7 +23,8 @@ namespace StringMatchingInterpreter
             //    str.Execute();
             //}
             var translator = new Translator();
-            translator.Translate(tokens);
+            var text = translator.Translate(tokens);
+            System.Console.WriteLine(text);
         }
     }
 }
