@@ -15,6 +15,7 @@ namespace CodeTranslator.Core
                 using System;
                 using System.Collections;
                 using System.Collections.Generic;
+                using System.Text.RegularExpressions;
 
                 namespace RokaProgramming
                 {
@@ -78,21 +79,72 @@ namespace CodeTranslator.Core
                         public IEnumerator<char> GetEnumerator() => _charSet.GetEnumerator();
 
                         IEnumerator IEnumerable.GetEnumerator() => _charSet.GetEnumerator();
+
+                        public override string ToString()
+                        {
+                            return '[' + string.Join(',', new List<char>(_charSet)) + ']';
+                        }
+
+                    }
+
+                    public class RokaRegex
+                    {
+                        private Regex _regex;
+                        public RokaRegex(string pattern, bool escape = true)
+                        {
+                            if (escape)
+                            {
+                                pattern = Regex.Escape(pattern);
+                            }
+                            _regex = new Regex(pattern);
+                        }
+
+                        public void Add(string value) => _regex = new Regex(_regex.ToString() + Regex.Escape(value));
+
+                        public void Add(CharSet set) => _regex = new Regex(_regex.ToString() + set.ToString().Replace(',', '\0'));
+
+                        public static RokaRegex operator +(RokaRegex regex, CharSet set)
+                        {
+                            var result = new RokaRegex(regex.ToString(), false);
+                            result.Add(set);
+                            return result;
+                        }
+
+                        public static RokaRegex operator +(RokaRegex regex, string value)
+                        {
+                            var result = new RokaRegex(regex.ToString(), false);
+                            result.Add(value);
+                            return result;
+                        }
+
+                        public void FindMatch(string value)
+                        {
+                            var matches = _regex.Matches(value);
+                            foreach(Match match in matches)
+                            {
+                                Console.WriteLine(value);
+                                Console.WriteLine(new string(' ', match.Index) + new string('^', match.Length));
+                                Console.WriteLine(new string(' ', match.Index) + match.Value);
+                            }
+                        }
+
+                        public override string ToString() => _regex.ToString();
                     }
 
                     public class RokaProgram
                     {
                         private static int Length1(string value) => value.Length;
 
-                        private static void Print1(string value) => Console.WriteLine(value);
+                        private static void Print1(object value) => Console.WriteLine(value);
+
+                        private static void Find1(RokaRegex regex, string value) => regex.FindMatch(value);
 
                         public static void Main()
                         {
-
-            ");
+");
             foreach (var token in tokens)
             {
-                Console.WriteLine($"{token.Value} {token.TokenType}");
+                //Console.WriteLine($"{token.Value} {token.TokenType}");
                 TransformToken(text, token);
             }
             return text.ToString();
@@ -127,7 +179,22 @@ namespace CodeTranslator.Core
                     text.Append(" for ");
                     break;
                 case TokenType.Identifier:
-                    text.Append($" {token.Value}1 ");
+                    if (token.Value == "length")
+                    {
+                        text.Append("Length1");
+                    }
+                    else if (token.Value == "print")
+                    {
+                        text.Append("Print1");
+                    }
+                    else if(token.Value == "find")
+                    {
+                        text.Append("Find1");
+                    }
+                    else
+                    {
+                        text.Append($" {token.Value}1 ");
+                    }
                     break;
                 case TokenType.If:
                     text.Append(" if ");
@@ -139,7 +206,7 @@ namespace CodeTranslator.Core
                     text.Append(token.Value);
                     break;
                 case TokenType.OpenBraces:
-                    text.Append(" { ");
+                    text.Append(" {\n");
                     break;
                 case TokenType.OpenParenthesis:
                     text.Append(" ( ");
@@ -148,7 +215,7 @@ namespace CodeTranslator.Core
                     text.Append(" + ");
                     break;
                 case TokenType.StatementTerminator:
-                    text.Append(" ; ");
+                    text.Append(" ;\n");
                     break;
                 case TokenType.StringValue:
                     text.Append(token.Value);
@@ -157,7 +224,7 @@ namespace CodeTranslator.Core
                     text.Append(" var ");
                     break;
                 case TokenType.SequenceTerminator:
-                    text.Append(@" } } }");
+                    text.Append(" }\n}\n}");
                     break;
                 case TokenType.Bigger:
                     text.Append(" > ");
@@ -170,6 +237,21 @@ namespace CodeTranslator.Core
                     break;
                 case TokenType.SmallerEquals:
                     text.Append(" <= ");
+                    break;
+                case TokenType.CharSet:
+                    text.Append(token.Value.Replace("[", " new CharSet() { ").Replace("]", " } "));
+                    break;
+                case TokenType.Char:
+                    text.Append(token.Value);
+                    break;
+                case TokenType.CharCast:
+                    text.Append(token.Value);
+                    break;
+                case TokenType.Regex:
+                    text.Append($"new RokaRegex(\"{token.Value.Substring(1, token.Value.Length - 2)}\")");
+                    break;
+                case TokenType.RegexCast:
+                    text.Append("new RokaRegex(\"\") + ");
                     break;
                 default:
                     throw new DslParserException("Unknown token type");

@@ -24,7 +24,8 @@ namespace StringMatchingInterpreter
             //}
             var translator = new Translator();
             var text = translator.Translate(tokens);
-            System.Console.WriteLine(text);
+            //System.Console.WriteLine(text);
+            Executor.Core.RokaProgramExecutor.Execute(text);
         }
     }
 }

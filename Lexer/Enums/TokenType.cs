@@ -26,6 +26,11 @@
         Bigger,
         Smaller,
         BiggerEquals,
-        SmallerEquals
+        SmallerEquals,
+        CharSet,
+        Char,
+        CharCast,
+        Regex,
+        RegexCast
     }
 }
