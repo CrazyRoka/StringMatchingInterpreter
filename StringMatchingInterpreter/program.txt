@@ -1,0 +1,11 @@
+var first = [];
+var second = [];
+for(var i = 0; i < 10; i += 1) {
+	first += (char)(i + 'a');
+	second += (char)(i + 'g');
+}
+Print(first);
+Print(second);
+Print(first + second);
+Print(first - second);
+Print(second - first);

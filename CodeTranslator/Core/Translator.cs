@@ -144,7 +144,6 @@ namespace CodeTranslator.Core
 ");
             foreach (var token in tokens)
             {
-                //Console.WriteLine($"{token.Value} {token.TokenType}");
                 TransformToken(text, token);
             }
             return text.ToString();

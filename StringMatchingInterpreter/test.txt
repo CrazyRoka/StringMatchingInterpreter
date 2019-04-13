@@ -1,2 +1,0 @@
-var pattern = (Regex)"rokaToch[]";
-Print(pattern);

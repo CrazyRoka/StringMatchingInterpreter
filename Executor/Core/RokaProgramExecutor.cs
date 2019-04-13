@@ -52,52 +52,15 @@ namespace Executor.Core
                     ShowErrors(result);
                 }
             }
-
-            //            var tree = CSharpSyntaxTree.ParseText(@"
-            //namespace Roka
-            //{
-            //public class MyClass
-            //{
-            //    public static void Main()
-            //    {
-            //        System.Console.WriteLine(""Hello World!"");
-            //        System.Console.ReadLine();
-            //    }   
-            //}
-            //}");
-            //            var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
-
-            //            var mscorlib = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);
-            //            var compilation = CSharpCompilation.Create("MyCompilation",
-            //                syntaxTrees: new[] { tree },
-            //                references: 
-            //                new[] {
-            //                    mscorlib,
-            //                    MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Private.CoreLib.dll")),
-            //                    MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Console.dll")),
-            //                    MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Runtime.dll"))
-            //                });
-
-            //            //Emit to stream
-            //            var ms = new MemoryStream();
-            //            var emitResult = compilation.Emit(ms);
-
-            //            if(!emitResult.Success){
-            //                ShowErrors(emitResult);
-            //            }
-
-            //            //Load into currently running assembly. Normally we'd probably
-            //            //want to do this in an AppDomain
-            //            var ourAssembly = Assembly.Load(ms.ToArray());
-            //            var type = ourAssembly.GetType("Roka.MyClass");
-
-            //            //Invokes our main method and writes "Hello World" :)
-            //            type.InvokeMember("Main", BindingFlags.Default | BindingFlags.InvokeMethod, null, null, null);
         }
 
         private static void ShowErrors(EmitResult result)
         {
-            var compilationErrors = result.Diagnostics.Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error).ToList();
+            var compilationErrors =
+                result.Diagnostics
+                    .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
+                    .ToList();
+
             foreach(var error in compilationErrors)
             {
                 Console.WriteLine($"{error.GetMessage()}");
